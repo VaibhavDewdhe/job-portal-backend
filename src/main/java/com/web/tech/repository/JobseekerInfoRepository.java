@@ -23,4 +23,9 @@ public interface JobseekerInfoRepository extends JpaRepository<JobseekerInfo, Lo
     @Transactional
     @Query("UPDATE JobseekerInfo j SET j.profilePicture = :profile WHERE j.jobseekerId = :userid")
     int updateProfileByUserId(@Param("profile") String profile, @Param("userid") Long userid);
+
+    @Modifying
+    @Transactional
+    @Query("UPDATE JobseekerInfo j SET j.resume = :resume WHERE j.jobseekerId = :userid")
+    int updateResumeByUserId(@Param("resume") String resume, @Param("userid") Long userid);
 }

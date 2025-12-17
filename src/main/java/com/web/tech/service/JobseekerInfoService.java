@@ -76,7 +76,8 @@ public class JobseekerInfoService {
     return 	repository.updateProfileByUserId(name, id);
     }
     
-    
-    
+    public int updateResume(String resume, long id) {
+        return repository.updateResumeByUserId(resume, id);
+    }
     
 }

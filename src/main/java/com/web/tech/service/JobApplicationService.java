@@ -11,7 +11,6 @@ import com.web.tech.repository.PostRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -42,9 +41,8 @@ public class JobApplicationService {
             }
 
             JobApplication jobApplication = new JobApplication(jobseeker, post, "Applied");
-            jobApplication.setCoverLetter(coverLetter);
-            jobApplication.setExpectedSalary(expectedSalary);
-            jobApplication.setAvailability(availability);
+
+            jobApplication.setResume(jobseeker.getResume());
             jobApplication.setAppliedAt(java.time.LocalDateTime.now());
             return jobApplicationRepository.save(jobApplication);
         }
@@ -90,9 +88,7 @@ public class JobApplicationService {
         dto.setApplicationId(app.getId());
         dto.setApplicationStatus(app.getStatus());
         dto.setAppliedAt(app.getAppliedAt());
-        dto.setCoverLetter(app.getCoverLetter());
-        dto.setExpectedSalary(app.getExpectedSalary());
-        dto.setAvailability(app.getAvailability());
+        dto.setResume(app.getResume());
 
         if (app.getJobPost() != null) {
             Post post = app.getJobPost();
@@ -107,6 +103,7 @@ public class JobApplicationService {
         if (app.getJobseeker() != null) {
             JobseekerInfo jobseeker = app.getJobseeker();
             dto.setJobseekerId(jobseeker.getJobseekerId());
+            dto.setUserId(jobseeker.getUserId());
             dto.setApplicantName(jobseeker.getFullName());
             dto.setApplicantEmail(jobseeker.getEmail());
         }
@@ -114,5 +111,4 @@ public class JobApplicationService {
         return dto;
     }
 }
-
 

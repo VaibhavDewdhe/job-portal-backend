@@ -29,10 +29,6 @@ public class JobApplication {
     public void setApplicationStatus(String status) {
         this.status = status;
     }
-
-    private String coverLetter;
-    private String expectedSalary;
-    private String availability;
     private String resume;
     private java.time.LocalDateTime appliedAt;
 
@@ -78,29 +74,6 @@ public class JobApplication {
         this.status = status;
     }
 
-    public String getCoverLetter() {
-        return coverLetter;
-    }
-
-    public void setCoverLetter(String coverLetter) {
-        this.coverLetter = coverLetter;
-    }
-
-    public String getExpectedSalary() {
-        return expectedSalary;
-    }
-
-    public void setExpectedSalary(String expectedSalary) {
-        this.expectedSalary = expectedSalary;
-    }
-
-    public String getAvailability() {
-        return availability;
-    }
-
-    public void setAvailability(String availability) {
-        this.availability = availability;
-    }
 
     public String getResume() {
         return resume;

@@ -11,12 +11,14 @@ public class JobApplicationDetailsDto {
     private String companyName;
     private Long jobseekerId;
     private Long employerId;
+    private Long userId;
     private String applicantName;
     private String applicantEmail;
     private String coverLetter;
     private String expectedSalary;
     private String availability;
     private LocalDateTime appliedAt;
+    private String resume;
 
     // Getters and Setters
 
@@ -76,6 +78,14 @@ public class JobApplicationDetailsDto {
         this.employerId = employerId;
     }
 
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
+    }
+
     public String getApplicantName() {
         return applicantName;
     }
@@ -122,5 +132,13 @@ public class JobApplicationDetailsDto {
 
     public void setAppliedAt(LocalDateTime appliedAt) {
         this.appliedAt = appliedAt;
+    }
+
+    public String getResume() {
+        return resume;
+    }
+
+    public void setResume(String resume) {
+        this.resume = resume;
     }
 }

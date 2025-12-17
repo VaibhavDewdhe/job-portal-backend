@@ -30,6 +30,9 @@ public class JobseekerInfoController {
     @Value("${file.upload-dir}")
     private String uploadDir;
 
+    @Value("${file.resume-upload-dir}")
+    private String resumeUploadDir;
+
     public JobseekerInfoController(JobseekerInfoService service) {
         this.service = service;
     }
@@ -99,8 +102,32 @@ public class JobseekerInfoController {
         }
     }
 
+    @GetMapping("/resume/{id}")
+    public ResponseEntity<Resource> getResume(@PathVariable int id) {
+        try {
+            JobseekerInfo jobseekerInfo = service.getInfo(id);
+            Path resumePath = Paths.get(resumeUploadDir).resolve(jobseekerInfo.getResume());
+            Resource resource = new UrlResource(resumePath.toUri());
+
+            if (resource.exists() || resource.isReadable()) {
+                return ResponseEntity.ok()
+                        .header(HttpHeaders.CONTENT_TYPE, Files.probeContentType(resumePath))
+                        .body(resource);
+            } else {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                        .body(null);
+            }
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(null);
+        }
+    }
+
     @Autowired
     private ImageHelper imfs;
+
+    @Autowired
+    private ResumeHelper rmfs;
     //--------------------------------------------------------
     
     @PostMapping("/updatePhoto/{id}")
@@ -111,6 +138,12 @@ public class JobseekerInfoController {
         service.updateprofile(file.getOriginalFilename(), id);        
         return "Upload Succesfully......";
     }
-    
-    
+
+    @PostMapping("/updateResume/{id}")
+    public String updateResume(@PathVariable Long id, @RequestParam("file") MultipartFile file) {
+        rmfs.isSaveResume(file);
+        
+        service.updateResume(file.getOriginalFilename(), id);        
+        return "Resume Upload Succesfully......";
+    }
 }
